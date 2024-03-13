@@ -1,6 +1,6 @@
 tailwind.config = {
-    content: ["./src/**/*.{html,js}"],
-    darkMode: 'class',
+    content: ['../templates/**/*.html'],
+    darkMode: 'media', // 'media' 또는 'class'
     theme: {
         extend: {
             colors: {

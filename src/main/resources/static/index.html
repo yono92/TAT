@@ -5,11 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO List</title>
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="transition-colors duration-500">
+<div class="center-container bg-white text-black dark:bg-gray-800 dark:text-white">
+    <div class="center-container bg-white text-black dark:bg-gray-800 dark:text-white">
+        <div class="bg-gray-50 dark:bg-gray-900">
+            <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <!-- 이미지를 가로로 늘리고 폼에 맞게 조정 -->
+                <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                    <img class="w-45 h-20 mr-3" src="./images/tat_logo_v3.jpg" alt="TAT_logo">
+                </a>
+                <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-black-800 dark:border-black-700">
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8 dark:bg-gray-600">
+                        <h1 class="text-4xl font-bold leading-tight tracking-tight text-gray-600 dark:text-white">
+                            Today’s Tasks
+                        </h1>
+                        <form class="space-y-4 md:space-y-7" action="#">
+                            <div>
+                                <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your ID</label>
+                                <input type="id" name="userId" id="id" placeholder="" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-black-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            </div>
+                            <div>
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                <input type="password" name="password" id="password" placeholder="" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-black-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            </div>
+                            <button type="submit" class="w-full text-white bg-primary-800 hover:bg-primary-900 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                            <p class="text-sm font-light text-gray-500 dark:text-white">
+                                회원이 아직 아니신가요?? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-white">회원가입</a>
+                            </p>
+                        </form>
+                    </div>
+                    <button id="dark-mode-toggle" class="fixed bottom-4 right-4 bg-gray-200 dark:bg-gray-800 p-4 rounded-full text-gray-600 dark:text-white text-lg" onclick="toggleDarkMode()">🌓</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <script>
-    // 시스템 다크 모드 설정에 따라 초기 테마 설정
     function setInitialTheme() {
         const userMediaPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const userPreferenceInLocalStorage = localStorage.getItem('darkMode');
@@ -21,50 +55,14 @@
         }
     }
 
-    // 다크 모드 토글과 로컬 스토리지에 저장
     function toggleDarkMode() {
-        var html = document.documentElement;
-        var isDarkMode = html.classList.toggle('dark');
+        const html = document.documentElement;
+        const isDarkMode = html.classList.toggle('dark');
         localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
     }
-
 
     // 페이지 로드 시 초기 테마 설정 함수 호출
     setInitialTheme();
 </script>
-<script src="https://cdn.tailwindcss.com"></script>
-<body>
-<div class="center-container">
-    <div class="bg-gray-50 dark:bg-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <!--  이미지를 가로로 늘리고 폼에 맞게 조정-->
-            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img class="w-45 h-20 mr-3" src="./images/tat_logo_v3.jpg" alt="TAT_logo">
-            </a>
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-black-800 dark:border-black-700">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8 dark:bg-gray-600">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-600 md:text-2xl-white dark:text-white">
-                        Today’s Tasks
-                    </h1>
-                    <form class="space-y-4 md:space-y-7" action="#">
-                        <div>
-                            <label for="id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white bg-white-600">Your ID</label>
-                            <input type="id" name="userId" id="id"  placeholder="" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-black-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" name="password" id="password" placeholder="" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-black-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                        </div>
-                        <button type="submit" class="w-full text-white bg-primary-800 hover:bg-primary-900 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
-                        <p class="text-sm font-light text-gray-500 dark:text-black-400">
-                            회원이 아직 아니신가요?? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-white-600">회원가입</a>
-                        </p>
-                    </form>
-                </div>
-                <button id="dark-mode-toggle" class="fixed bottom-4 right-4 bg-gray-200 dark:bg-gray-800 p-4 rounded-full text-gray-600 dark:text-white text-lg" onclick="toggleDarkMode()">🌓</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>

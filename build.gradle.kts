@@ -25,8 +25,14 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	//	롬복 디펜던시 추가
+	implementation("org.projectlombok:lombok:1.18.22")
+	annotationProcessor ("org.projectlombok:lombok:1.18.22")
+	testAnnotationProcessor ("org.projectlombok:lombok:1.18.22")
+
 
 }
+
 
 tasks.withType<Test> {
 	useJUnitPlatform()
