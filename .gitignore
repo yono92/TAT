@@ -49,8 +49,9 @@ out/
 *.log.*
 *.log
 
+# 노드 모듈
+/node_modules/
 
-
-### 프로퍼티 파일 이그노어
+node_modules### 프로퍼티 파일 이그노어
 *.properties
 *.properties.*
