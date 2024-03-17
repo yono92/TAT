@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -16,7 +17,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //유저 생성 및 수정
     User save(User user);
 
-    //아이디로 유저 찾기
-    User findById(String id);
+    //유저 삭제
+    void delete(User user);
+
+    Optional<User> findById(String id);
+
 
 }

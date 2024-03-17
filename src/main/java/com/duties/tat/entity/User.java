@@ -7,9 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 
 @Entity
@@ -21,6 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idx;
     // 글자수 16자로 제한 (아이디)
+    @NonNull
     private String id;
     private String password;
     private String name;
@@ -28,4 +28,7 @@ public class User {
     private String phone;
     private String role;
 
+    public User() {
+
+    }
 }

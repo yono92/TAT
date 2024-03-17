@@ -6,16 +6,13 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Slf4j
@@ -36,13 +33,14 @@ class UserRepositoryTest {
     @Transactional
     @Rollback(false)
     void save() {
+
         User user = new User();
         user.setId("test");
         user.setPassword("test");
         user.setName("test");
-        user.setEmail ( "test" );
-        user.setPhone ( "test" );
-        user.setRole ( "test" );
+        user.setEmail("test");
+        user.setPhone("test");
+        user.setRole("test");
         userService.save(user);
     }
 
@@ -57,8 +55,16 @@ class UserRepositoryTest {
 
     @Test
     void findById() {
-        User user = userRepository.findById("test");
+        Optional<User> user = userRepository.findById("test");
         log.info("user 나와라요 : {}", user);
     }
+    // user를 찾아서 삭제하는 테스트코드
+    @Test
+    @Transactional
+    @Rollback(false)
+    void delete() {
+        userRepository.deleteById(1l);
+    }
+
 
 }
