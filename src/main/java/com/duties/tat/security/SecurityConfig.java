@@ -1,31 +1,44 @@
 package com.duties.tat.security;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
+@Data
 public class SecurityConfig  {
+
+
+    private final UserDetailsService userDetailsService;
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // CSRF 보호 설정 변경
-                .csrf(csrf -> csrf.disable())
-                // 모든 요청에 대해 접근 허용
-                .authorizeRequests(authorize -> authorize.anyRequest().permitAll());
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/user/signup", "/user/login").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .csrf((csrf) -> csrf.disable())
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
-    // 비밀번호 암호화
-     @Bean
-     public PasswordEncoder passwordEncoder() {
-         return new BCryptPasswordEncoder();
-     }
+
+
+
 
 }

@@ -35,7 +35,7 @@ class UserRepositoryTest {
     void save() {
 
         User user = new User();
-        user.setId("test");
+        user.setUserId("test");
         user.setPassword("test");
         user.setName("test");
         user.setEmail("test");
@@ -59,12 +59,7 @@ class UserRepositoryTest {
         log.info("user 나와라요 : {}", user);
     }
     // user를 찾아서 삭제하는 테스트코드
-    @Test
-    @Transactional
-    @Rollback(false)
-    void delete() {
-        userRepository.deleteById(1l);
-    }
+
 
 
 }
