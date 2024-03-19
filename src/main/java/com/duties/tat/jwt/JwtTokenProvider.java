@@ -1,10 +1,16 @@
 package com.duties.tat.jwt;
 
+import com.duties.tat.service.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -12,6 +18,7 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
@@ -20,8 +27,11 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private int jwtExpiration;
 
+    private final CustomUserDetailsService userDetailsService;
+
 
     private static final SecretKey secretKey = generateSecureKey();
+
 
     // JWT 토큰 생성
     public String generateToken(String userId, String role) {
@@ -35,6 +45,22 @@ public class JwtTokenProvider {
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+    }
+
+    // HTTP 요청에서 토큰 추출
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    // 토큰에서 인증 정보를 가져와 Authentication 객체 생성
+// 토큰에서 인증 정보를 가져와 Authentication 객체 생성
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(this.getSubject(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     // JWT에서 인증 정보 추출
