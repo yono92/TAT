@@ -1,6 +1,7 @@
 package com.duties.tat.service;
 
 import com.duties.tat.entity.User;
+import com.duties.tat.exception.UserNotFoundException;
 import com.duties.tat.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,7 @@ public class UserService {
     // 예시: ID로 유저 찾기
     public User findById(String id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
 

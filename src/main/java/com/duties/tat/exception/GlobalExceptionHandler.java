@@ -39,4 +39,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorMessage("503", "Service unavailable due to database error");
     }
 
+    @ExceptionHandler(value = { ChangeSetPersister.NotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorMessage handleNotFoundException(ChangeSetPersister.NotFoundException ex) {
+        return new ErrorMessage("404", "Not found");
+    }
+
+    @ExceptionHandler(value = { RuntimeException.class })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage handleRuntimeException(RuntimeException ex) {
+        return new ErrorMessage("500", "Internal server error");
+    }
 }
